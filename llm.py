@@ -1,7 +1,5 @@
 import os
 
-GEMINI_ACCESS_TOKEN = os.getenv("GEMINI_ACCESS_TOKEN")
-
 
 class LLMBase:
     def __init__(self):
