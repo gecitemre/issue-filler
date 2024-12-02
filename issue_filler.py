@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 GEMINI_ACCESS_TOKEN = os.getenv("GEMINI_ACCESS_TOKEN")
+GITLAB_PROJECT_URL = os.getenv("GITLAB_PROJECT_URL")
 
 
 def get_commit_details(repo_path, commit_hash):
@@ -30,7 +31,7 @@ def get_commit_details(repo_path, commit_hash):
         return {
             "diffs": diff_details,
             "title": commit_message.split("\n")[0],  # First line of the commit message
-            "web_url": f"https://gitlab.ceng.metu.edu.tr/group17/metuapp/-/commit/{commit_hash}",
+            "web_url": f"{GITLAB_PROJECT_URL}/-/commit/{commit_hash}",
         }
     except subprocess.CalledProcessError as e:
         print(f"Error fetching commit details: {e}")
@@ -44,7 +45,7 @@ def generate_commit_explanation(commit_details):
     explanation += f"**Commit Link:** {commit_details['web_url']}\n\n"
     for change in commit_details["diffs"]:
         explanation += f"**File:** {change['new_path']}\n"
-        explanation += f"**Changes:**\n"
+        explanation += "**Changes:**\n"
         explanation += f"```diff\n{change['diff']}\n```\n\n"
     return explanation
 
@@ -107,7 +108,10 @@ def main():
     commit_hashs = [input(f"Enter commit hash {i + 1}: ").strip() for i in range(n)]
 
     # Fetch commit details and explanations
-    commit_details_list = [get_commit_details(".", hash) for hash in commit_hashs]
+    GIT_REPO_PATH = "."
+    commit_details_list = [
+        get_commit_details(GIT_REPO_PATH, hash) for hash in commit_hashs
+    ]
     commit_explanations = [
         generate_commit_explanation(details) for details in commit_details_list
     ]
