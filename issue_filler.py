@@ -2,6 +2,7 @@ import os
 import subprocess
 
 from dotenv import load_dotenv
+
 from llm import prepare_issue_description
 
 load_dotenv()
@@ -52,8 +53,6 @@ def generate_commit_explanation(commit_details):
 
 # Main function
 def main():
-    llm_type = input("Which LLM model do you want to use? (gemini / chatgpt): ").strip()
-
     # Get commit links from the user
     n = int(input("How many commits do you want to summarize? "))
     commit_hashes = [input(f"Enter commit hash {i + 1}: ").strip() for i in range(n)]
@@ -67,7 +66,7 @@ def main():
     ]
 
     # Print the summary
-    print(prepare_issue_description(commit_explanations, llm_type))
+    print(prepare_issue_description(commit_explanations))
 
 
 if __name__ == "__main__":
