@@ -13,7 +13,6 @@ GIT_REPO_PATH = os.getenv("GIT_REPO_PATH")
 
 
 def get_commit_details(repo_path, commit_hash):
-    # Change to the repository directory
     try:
         # Get the commit message (title is the first line)
         commit_message = subprocess.check_output(
@@ -26,7 +25,7 @@ def get_commit_details(repo_path, commit_hash):
             ["git", "-C", repo_path, "diff", f"{commit_hash}~1", commit_hash], text=True
         )
 
-        # Split the diff by file for clarity (optional, parse further if needed)
+        # Split the diff by file for clarity
         diff_details = [{"new_path": None, "diff": diff_output}]
 
         return {
