@@ -62,7 +62,7 @@ def prepare_issue_description(commit_explanations):
     final_notes = "Please do not add any additional text, your response will be directly added as a description to the related issue. Please avoid any expression that will indicate that this is an AI-generated text. The text should indicate that it is written by the same person who did the task."
     prompt = f"{task_definition}\n\n{issue_template}\n\n{final_notes}"
     for i, commit_explanation in enumerate(commit_explanations):
-        prompt += f"\n\nMerge Request {i + 1}:\n\n"
+        prompt += f"\n\nCommit Explanation {i + 1}:\n\n"
         prompt += commit_explanation + "\n\n"
 
     return llm.generate_content(prompt)
