@@ -10,7 +10,7 @@ This is a simple tool to fill in the issue template for your tasks.
     GITLAB_PROJECT_URL=your_gitlab_project_url
     GIT_REPO_PATH=/path/to/your/local/git/repo
     ```
-    If you want to use ChatGPT instead of Gemini, you can add the following environment variables:
+    If you want to use GPT instead of Gemini, you can add the following environment variables:
     ```
     OPENAI_API_KEY=your_openai_api_key
     GITLAB_PROJECT_URL=your_gitlab_project_url
