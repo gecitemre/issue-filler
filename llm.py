@@ -10,14 +10,14 @@ class LLMBase:
 
     @staticmethod
     def factory(llm_type):
-        if llm_type == "chatgpt":
-            return ChatGPT()
+        if llm_type == "gpt":
+            return GPT()
         if llm_type == "gemini":
             return Gemini()
         raise ValueError("Invalid LLM type")
 
 
-class ChatGPT(LLMBase):
+class GPT(LLMBase):
     def __init__(self):
         import openai
 
@@ -37,7 +37,7 @@ class Gemini(LLMBase):
         import google.generativeai as genai
 
         super().__init__()
-        self.model = genai.GenerativeModel("gemini-1.5-flash-latest")
+        self.model = genai.GenerativeModel("gemini-flash-latest")
         genai.configure(api_key=os.getenv("GEMINI_ACCESS_TOKEN"))
 
     def generate_content(self, prompt):
@@ -49,7 +49,7 @@ def get_llm_type():
     if "GEMINI_ACCESS_TOKEN" in os.environ:
         return "gemini"
     elif "OPENAI_API_KEY" in os.environ:
-        return "chatgpt"
+        return "gpt"
 
 
 def prepare_issue_description(commit_explanations):
