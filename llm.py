@@ -19,17 +19,17 @@ class LLMBase:
 
 class GPT(LLMBase):
     def __init__(self):
-        import openai
+        from openai import OpenAI
 
         super().__init__()
         self.model = "gpt-3.5-turbo"
-        openai.api_key = os.getenv("OPENAI_API_KEY")
+        self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
     def generate_content(self, prompt):
-        response = openai.ChatCompletion.create(
+        response = self.client.chat.completions.create(
             model=self.model, messages=[{"role": "system", "content": prompt}]
         )
-        return response.choices[0].message["content"]
+        return response.choices[0].message.content
 
 
 class Gemini(LLMBase):
